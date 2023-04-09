@@ -1,0 +1,28 @@
+Nike Assistant Commands:
+
+1. To search for something, say "search for" then the item you want to search.
+    Once the search results are shown, say the number of the entry you want to open.
+
+2. To open the Nike website you can mention the word "website".
+
+3. To open the cart page you can mention the word "cart".
+
+4. To open the favorites page you can mention the word "favorites".
+
+5. To open the log in page you can mention "log in" or "login".
+
+6. To open the sale page you can mention "sale" or "sales".
+
+7. To open the new arrivals page you can mention the word "new".
+
+8. To open the best seller page you can mention the word "best".
+
+9. To open the custom shoes page you can mention the word "custom".
+
+10. To close the program you can mention "close", "terminate", or "shut down"
+
+
+Created by:
+Jaime Emanuel B. Lucero
+Email: jaimeemanuellucero@gmail.com
+Github: JaimeLucero

@@ -34,6 +34,17 @@ class NikeAssistant:
             command = self.chat_window.send_message()
             if command is not None and self.trigger_word in command.lower():
                 self.listen_for_commands()
+            elif command is not None and "help" in command.lower():
+                self.display_file('Help.txt')
+                self.listen_for_commands()
+    
+    def display_file(self, filename):
+        try:
+            with open(filename, 'r') as f:
+                content = f.read()
+                messagebox.showinfo(title='Help', message=content)
+        except FileNotFoundError:
+            messagebox.showerror(title='Error', message='File not found')
 
     def listen_for_commands(self):
         self.chat_window.add_chat_bubble("What can I help you with?", from_system=True)
@@ -56,50 +67,51 @@ class NikeAssistant:
                 self.chat_window.master.destroy()
     
     def self_command(self, command):
-        if 'search' in command:
+        if 'search' in command.lower():
             query = self.extract_query(command)
             self.search(query)
             self.command_again()
             self.time.sleep(10)
-        if 'website' in command:
+        if 'website' in command.lower():
             webbrowser.open('https://www.nike.com/ph/')
             self.command_again()
             self.time.sleep(10)
-        if 'cart' in command:
+        if 'cart' in command.lower():
             webbrowser.open('https://www.nike.com/ph/cart')
             self.command_again()
             self.time.sleep(10)
-        if 'favorites' in command:
+        if 'favorites' in command.lower():
             webbrowser.open('https://www.nike.com/ph/favorites')
             self.command_again()
             self.time.sleep(10)
-        if 'login' in command:
+        if 'log in' in command or 'login' in command.lower():
             webbrowser.open('https://www.nike.com/ph/member/profile/login')
             self.command_again()
             self.time.sleep(10)
-        if 'sale' in command or 'sales' in command:
+        if 'sale' in command or 'sales' in command.lower():
             webbrowser.open('https://www.nike.com/ph/w/sale-3yaep')
             self.command_again()
             self.time.sleep(10)
-        if 'new' in command:
+        if 'new' in command.lower():
             webbrowser.open('https://www.nike.com/ph/w/new-3n82y')
             self.command_again()
             self.time.sleep(10)
-        if 'best' in command:
+        if 'best' in command.lower():
             webbrowser.open('https://www.nike.com/ph/w/best-76m50')
             self.command_again()
             self.time.sleep(10)
-        if 'custom' in command:
+        if 'custom' in command.lower():
             webbrowser.open('https://www.nike.com/ph/w/nike-by-you-shoes-6ealhzy7ok')
             self.command_again()
             self.time.sleep(10)
-        if 'close' in command or 'terminate' in command or 'shut down' in command:
+        if 'close' in command or 'terminate' in command or 'shut down' in command.lower():
             self.chat_window.add_chat_bubble('Shutting off!', from_system=True)
             self.ai.speak('Shutting off')
             self.chat_window.destroy()
             self.chat_window.master.destroy()
-        if 'help' in command:
-            pass
+        if 'help' in command.lower():
+            self.display_file('Help.txt')
+
 
     def extract_query(self, command):
         # Remove the 'search' keyword from the command
