@@ -146,7 +146,7 @@ root = tk.Tk()
 chat_window = ChatWindow(root)
 root.title("Nike Bot")
 root.wm_attributes("-topmost", 1)
-img = tk.PhotoImage(file='nike logo.png')
+img = tk.PhotoImage(file='nike_logo.png')
 root.iconphoto(False,img)
 
 #instance of nike assistant
