@@ -26,3 +26,6 @@ Created by:
 Jaime Emanuel B. Lucero
 Email: jaimeemanuellucero@gmail.com
 Github: JaimeLucero
+
+Open source code:
+https://github.com/JaimeLucero/Nike_Assistant
