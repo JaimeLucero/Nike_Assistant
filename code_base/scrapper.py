@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import webbrowser
 import time
-from tkinter import messagebox
 
 keyword = None
 results = []
@@ -13,6 +12,7 @@ class scrapper:
     def __str__(self):
         return str(self.keyword)
     
+    #Will check if the device is connected to the internet
     def check_internet_connection(self):
         try:
             requests.get('https://www.google.com/')
@@ -20,6 +20,7 @@ class scrapper:
         except:
             return False
 
+    #Will return the items pulled by BeatifulSoup from the search link
     def search_result(keyword):
         global results
         
@@ -56,6 +57,7 @@ class scrapper:
             # Return an error message if there's a connection error
             return "Error: Could not connect to server"
 
+    #Will open the link of the specific item the user wants to open
     def pick_result(self, entry):
         global results
 

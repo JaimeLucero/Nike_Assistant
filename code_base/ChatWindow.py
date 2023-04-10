@@ -65,7 +65,7 @@ class ChatWindow(tk.Frame):
         self.mic_button.image = mic_icon  # keep a reference to the image to prevent garbage collection
         self.mic_button.pack(side='right', expand=True, fill='both')
 
-    
+    #function that will add the chat bubble to the window 
     def add_chat_bubble(self, text='', from_system=True):
         # Add a new chat bubble to the scrollable frame
         if from_system:
@@ -76,9 +76,11 @@ class ChatWindow(tk.Frame):
             user_bubble.pack(side='top', anchor='e')
         self.canvas.configure(scrollregion=self.canvas.bbox('all'))
 
+    #will set to true if the send button is clicked
     def send_button(self):
         self.send_button_clicked = True
 
+    #function that will send the inputted message from the user to the system
     def send_message(self):
         self.input_field.focus_set()  # give focus to the input field
         message = None
@@ -91,6 +93,7 @@ class ChatWindow(tk.Frame):
         self.send_button_clicked = False  # reset the variable to False
         return message  # return the text from the input field
 
+    #function that will execute if the user clicks the mic icon
     def start_listening(self):
         self.input_field.delete('1.0', 'end')  # clear the input field
         self.input_field.insert('end', 'Listening...')  # display a message indicating that the assistant is listening

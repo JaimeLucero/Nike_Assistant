@@ -7,10 +7,10 @@ class ChatBubble(tk.Canvas):
         super().__init__(master, bg=bg, highlightthickness=0, relief='flat', width=bubble_width, height=1)
 
         self.configure(background='#181818')
-        
         text = text.strip()
         self.bubble_width = bubble_width
         self.padding=padding
+
         # set font and color based on whether the bubble is from the system or the user
         if from_system:
             font = ('Arial', 10, 'bold')
@@ -56,6 +56,7 @@ class ChatBubble(tk.Canvas):
             y = self.winfo_height()
         self.create_rounded_rectangle(x, y, x + rect_width, total_height - padding,  fill=bg_color, outline=bg_color)
 
+        #anchor the text based on if it is from user or the system
         text_anchor = 'nw' if from_system else 'nw'
         text_width = min(font_obj.measure(text), width - 2 * padding)
         text_x = padding + 5 if from_system else rect_width - padding - 5 - text_width + padding + (width - rect_width + 2 * self.bubble_width) / 2
@@ -81,6 +82,7 @@ class ChatBubble(tk.Canvas):
             self.create_text(text_x, text_y, anchor=text_anchor, font=font, text=truncated_line, fill=text_color, width=width - 2 * padding, justify=justify)
             text_y += font_obj.metrics('linespace')
 
+    #function that will wrap the text to a specific width
     def wrap_text(self, text, font, max_width):
         words = text.split()
         lines = []
@@ -94,7 +96,7 @@ class ChatBubble(tk.Canvas):
         lines.append(current_line)
         return lines
 
-
+    #function that will create the rounded rectangle
     def create_rounded_rectangle(self, x1, y1, width, height, radius = 20,  **kwargs):
         points = [x1+radius, y1,
                 x1+radius, y1,

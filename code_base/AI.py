@@ -6,6 +6,7 @@ class AI:
         self.recognizer = sr.Recognizer()
         self.engine = pyttsx3.init()
 
+    #function that will make the microphone listen for input
     def listen(self):
         with sr.Microphone() as source:
             self.recognizer.adjust_for_ambient_noise(source)
@@ -17,6 +18,7 @@ class AI:
             except sr.UnknownValueError:
                 return "Could not understand audio"
 
+    #function that will turn text into speech
     def speak(self, text):
         self.engine.say(text)
         self.engine.runAndWait()
