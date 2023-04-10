@@ -46,7 +46,7 @@ class ChatWindow(tk.Frame):
             self.input_field.config(state='disabled')
 
         # Load the send icon
-        send_image = Image.open('send.png')
+        send_image = Image.open('code_base/send.png')
         send_image = send_image.resize((40, 40), Image.ANTIALIAS)
         send_icon = ImageTk.PhotoImage(send_image)
 
@@ -56,7 +56,7 @@ class ChatWindow(tk.Frame):
         self.send_button.pack(side='right', padx=10, pady=10)
 
         # Load the mic icon
-        mic_image = Image.open('mic.png')
+        mic_image = Image.open('code_base/mic.png')
         mic_image = mic_image.resize((40, 40), Image.ANTIALIAS)
         mic_icon = ImageTk.PhotoImage(mic_image)
 

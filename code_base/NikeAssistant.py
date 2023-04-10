@@ -35,7 +35,7 @@ class NikeAssistant:
             if command is not None and self.trigger_word in command.lower():
                 self.listen_for_commands()
             elif command is not None and "help" in command.lower():
-                self.display_file('Help.txt')
+                self.display_file('code_base/Help.txt')
                 self.listen_for_commands()
     
     def display_file(self, filename):
@@ -110,7 +110,8 @@ class NikeAssistant:
             self.chat_window.destroy()
             self.chat_window.master.destroy()
         if 'help' in command.lower():
-            self.display_file('Help.txt')
+            self.display_file('code_base/Help.txt')
+            self.command_again()
 
 
     def extract_query(self, command):
@@ -123,8 +124,8 @@ class NikeAssistant:
     def search(self, query):
         self.chat_window.add_chat_bubble(f"Searching for {query}...", from_system=True)
         self.ai.speak(f"Searching for {query}.")
-        self.s(query)
-        self.chat_window.add_chat_bubble(self.s.search_result(), from_system=True)
+        self.scrapper = scrapper(query)
+        self.chat_window.add_chat_bubble(self.scrapper.search_result(), from_system=True)
 
         if 'Error' not in self.s.search_result():
             self.ai.speak(f'These are the results I found for {query}')
@@ -146,7 +147,7 @@ root = tk.Tk()
 chat_window = ChatWindow(root)
 root.title("Nike Bot")
 root.wm_attributes("-topmost", 1)
-img = tk.PhotoImage(file='nike_logo.png')
+img = tk.PhotoImage(file='code_base/nike_logo.png')
 root.iconphoto(False,img)
 
 #instance of nike assistant
