@@ -10,3 +10,5 @@ Time
 BeatuifulSoup
 PIL
 textwrap
+speech_recognition
+pyttsx3
