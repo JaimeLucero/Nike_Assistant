@@ -40,9 +40,10 @@ class NikeAssistant:
             elif command is not None and "help" in command.lower():
                 self.display_file('code_base/Help.txt')
                 self.listen_for_commands()
+            elif None:
+                pass
             else:
-                self.chat_window.add_chat_bubble("Wrong phrase!")
-                self.ai.speak("Wrong phrase!")
+                self.chat_window.input_field.insert('end', 'Invalid command.')
 
     #displays the help.txt into a message box
     def display_file(self, filename):
@@ -55,22 +56,18 @@ class NikeAssistant:
 
     #Waits for command from user
     def listen_for_commands(self):
-        while True:
-            self.chat_window.add_chat_bubble("What can I help you with?", from_system=True)
-            self.ai.speak("What can I help you with?")
-            v_command = self.chat_window.send_message()
-            if v_command is not None:
-                self.self_command(v_command)
-            else:
-                self.chat_window.add_chat_bubble("Wrong command!")
-                self.ai.speak("Wrong command!")
+        self.chat_window.add_chat_bubble("What can I help you with?", from_system=True)
+        self.ai.speak("What can I help you with?")
+        v_command = self.chat_window.send_message()
+        if v_command is not None:
+            self.self_command(v_command)
 
     #Asks user to continue using or not
     def command_again(self):
+        self.chat_window.add_chat_bubble("Is there something else you need help with?", from_system=True)
+        self.ai.speak("Is there something else you need help with?")
+        answer = self.chat_window.send_message()
         while True:
-            self.chat_window.add_chat_bubble("Is there something else you need help with?", from_system=True)
-            self.ai.speak("Is there something else you need help with?")
-            answer = self.chat_window.send_message()
             if answer is not None:
                 if 'yes' in answer:
                     self.listen_for_commands()
@@ -82,6 +79,8 @@ class NikeAssistant:
                 else:
                     self.chat_window.add_chat_bubble("Wrong command!")
                     self.ai.speak("Wrong command!")
+            else:
+                self.chat_window.input_field.insert('end', 'Invalid command.')
     
     #Conditions for possible commands
     def self_command(self, command):
@@ -132,8 +131,8 @@ class NikeAssistant:
                 self.display_file('code_base/Help.txt')
                 self.command_again()
             else:
-                self.chat_window.add_chat_bubble("Wrong command!")
-                self.ai.speak("Wrong command!")
+                self.chat_window.input_field.insert('end', 'Invalid command.')
+                command=self.chat_window.send_message()
 
     #Extracts the item that the user wants to search for
     def extract_query(self, command):
@@ -145,30 +144,36 @@ class NikeAssistant:
     
     #shows the search results
     def search(self, query):
+        self.chat_window.add_chat_bubble(f"Searching for {query}...", from_system=True)
+        self.ai.speak(f"Searching for {query}.")
+        self.scrapper = scrapper(query)
+        search_result = self.scrapper.search_result()
+        self.chat_window.add_chat_bubble(search_result, from_system=True)
+        self.ai.speak(f'These are the results I found for {query}')
         while True:
-            self.chat_window.add_chat_bubble(f"Searching for {query}...", from_system=True)
-            self.ai.speak(f"Searching for {query}.")
-            self.scrapper = scrapper(query)
-            self.ai.speak(f'These are the results I found for {query}')
-            self.chat_window.add_chat_bubble(self.scrapper.search_result(), from_system=True)
-
-            if 'Error' not in self.s.search_result():
-                
+            if not search_result.startswith("Error"):
                 self.chat_window.add_chat_bubble("Do you want to open an item?", from_system=True)
                 self.ai.speak("Do you want to open an item?")
                 open = self.chat_window.send_message()
                 if 'yes' in open:
+                    self.chat_window.add_chat_bubble("Pick an item.", from_system=True)
+                    self.ai.speak("Pick an item")
                     choice = self.chat_window.send_message()
                     if '1' in choice or 'one' in choice:
                         self.s.pick_result(1)
+                        self.command_again()
                     if '2' in choice or 'two' in choice:
                         self.s.pick_result(2)
+                        self.command_again()
                     if '3' in choice or 'three' in choice:
                         self.s.pick_result(3)
+                        self.command_again()
                     if '4' in choice or 'four' in choice:
                         self.s.pick_result(4)
+                        self.command_again()
                     if '5' in choice or 'five' in choice:
                         self.s.pick_result(5)
+                        self.command_again()
                 if 'no' in open:
                     self.command_again()
                 else:

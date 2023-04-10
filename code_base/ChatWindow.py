@@ -93,7 +93,7 @@ class ChatWindow(tk.Frame):
         self.send_button_clicked = False  # reset the variable to False
         return message  # return the text from the input field
 
-    #function that will execute if the user clicks the mic icon
+    #function that will execute if the user clicks the mic
     def start_listening(self):
         self.input_field.delete('1.0', 'end')  # clear the input field
         self.input_field.insert('end', 'Listening...')  # display a message indicating that the assistant is listening
